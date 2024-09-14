@@ -1,0 +1,591 @@
+<!-- Catatan : Beberapa yang belum sesuai adalah :  dan eksekusi shopping cart ke WA -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>U2Battery | Toko Aki Terpercaya</title>
+    <link rel="shortcut icon" title="x-icon" href="images/logo.jpeg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- App JS -->
+    <script src="app.js" async></script>
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav
+      x-data
+      class="navbar fixed-top navbar-expand-lg navbar-dark text-white p-md-3"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="images/logo.jpeg" alt="Logo" width="100" class="ms-5" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul
+            class="navbar-nav navbar-nav-scroll ms-auto me-2 mb-2 mb-lg-0 nav-underline"
+          >
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#beranda"
+                >Beranda</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#tentang"
+                >Tentang Kami</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#produk">Produk</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#kontak">Kontak</a>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="btn btn-danger position-relative"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span
+                  class="quantity-badge text-danger position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white"
+                  x-text="$store.cart.quantity"
+                  x-show="$store.cart.quantity"
+                ></span>
+              </button>
+            </li>
+          </ul>
+          <div class="shoppingcart"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modal Popup Shopping Cart -->
+    <div
+      x-data
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1
+              class="modal-title fs-5 fw-bold text-center"
+              id="exampleModalLabel"
+            >
+              Keranjang Anda
+            </h1>
+          </div>
+          <div class="modal-body">
+            <!-- Desain Shopping Cart -->
+            <div class="container">
+              <div class="row d-flex justify-content-center">
+                <div class="col-md">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <!-- Single item -->
+                      <template
+                        x-for="(item, index) in $store.cart.items"
+                        x-keys="index"
+                      >
+                        <div class="row">
+                          <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                            <!-- Image -->
+                            <div
+                              class="bg-image hover-overlay hover-zoom w-100 ripple rounded pb-2"
+                              data-mdb-ripple-color="light"
+                            >
+                              <img :src=`images/${item.img}` class="img-fluid
+                              rounded ms-5" :alt="item.name" style="width:
+                              70%;"/>
+                            </div>
+                            <!-- Image -->
+                          </div>
+
+                          <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                            <!-- Data -->
+                            <p>
+                              <strong x-text="item.name"></strong>
+                            </p>
+                            <p>
+                              Kategori : <span x-text="item.category"></span>
+                            </p>
+                            <p>
+                              Harga Satuan :
+                              <span x-text="rupiah(item.price)"></span>
+                            </p>
+                            <!-- Data -->
+                            <!-- Quantity -->
+
+                            <p>
+                              Jumlah :
+                              <span
+                                ><button
+                                  class="btn btn-sm btn-outline-danger rounded-pill"
+                                  id="remove"
+                                  @click="$store.cart.remove(item.id)"
+                                >
+                                  &minus;
+                                </button>
+                                <span x-text="item.quantity"></span>
+                                <button
+                                  class="btn btn-outline-danger btn-sm rounded-pill"
+                                  id="add"
+                                  @click="$store.cart.add(item)"
+                                >
+                                  &plus;
+                                </button></span
+                              >
+                            </p>
+
+                            <!-- Quantity -->
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 mt-3">
+                            <!-- Price -->
+                            <p class="text-start text-md-center">
+                              <strong
+                                >Total :
+                                <span x-text="rupiah(item.total)"></span
+                              ></strong>
+                            </p>
+                            <!-- Price -->
+                          </div>
+                          <hr class="py-2" />
+                        </div>
+                        <hr class="my-4" />
+                      </template>
+                      <!-- Single item -->
+                      <h4
+                        class="text-end me-5 fw-bold"
+                        x-show="$store.cart.items.length"
+                      >
+                        Total Harga :
+                        <span x-text="rupiah($store.cart.total)"></span>
+                      </h4>
+
+                      <div
+                        class="container text-center"
+                        x-show="!$store.cart.items.length"
+                      >
+                        <div class="row">
+                          <div class="col-md">
+                            <img
+                              src="images/empty.svg"
+                              alt=""
+                              style="width: 13rem"
+                              class="py-4"
+                            />
+                            <h4 class="text-center fw-bold">
+                              Keranjang Anda Masih Kosong.
+                            </h4>
+                            <p class="text-center">
+                              Tidak ada apa-apa disini. <br />Cek produk yang
+                              tersedia ditoko kami dan tambahkan ke keranjang!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-0" x-show="$store.cart.items.length">
+                    <div class="card-body p-4">
+                      <h5 class="fw-bold text-center">Data Pelanggan</h5>
+                      <hr />
+                      <div class="mb-3">
+                        <form action="" id="checkoutForm">
+                          <input
+                            type="hidden"
+                            name="items"
+                            x-model="JSON.stringify($store.cart.items)"
+                          />
+                          <input
+                            type="hidden"
+                            name="total"
+                            x-model="$store.cart.total"
+                          />
+                          <div class="col-12">
+                            <!-- Input Nama -->
+                            <label for="name"
+                              ><span class="form-label fw-bold"
+                                >Nama Pelanggan</span
+                              >
+                              <span class="text-danger fw-bold">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="name"
+                              name="name"
+                              placeholder="Nama Lengkap"
+                              required
+                            />
+                          </div>
+                          <div class="col-12">
+                            <!-- Input Alamat -->
+                            <label for="alamat"
+                              ><span class="form-label fw-bold"
+                                >Alamat Pengiriman</span
+                              ><span class="text-danger fw-bold">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="alamat"
+                              id="alamat"
+                              placeholder="Alamat Lengkap / Ambil Ditoko"
+                              required
+                            />
+                          </div>
+                          <div id="petunjukalamat" class="form-text">
+                            <span class="text-danger fw-bold">*</span> Wajib
+                            Diisi. <br /><span class="text-danger fw-bold"
+                              >**</span
+                            >
+                            Saat ini hanya teersedia pengiriman diwilayah
+                            Denpasar. <br /><span class="text-danger fw-bold"
+                              >**</span
+                            >
+                            Tulis
+                            <span class="fw-bold">Ambil Ditoko</span> apabila
+                            ingin mengambil produk ditoko kami.
+                          </div>
+
+                          <div class="me-auto">
+                            <button
+                              class="btn btn-success mt-4 checkout-button"
+                              type="submit"
+                            >
+                              Kirim
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-secondary mt-4"
+                              data-bs-dismiss="modal"
+                            >
+                              Tutup
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Desain ShoppingCart end -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section-->
+    <section
+      class="banner-image w-100 vh-120 d-flex justify-content-center align-items-center"
+      id="beranda"
+    >
+      <main class="content text-center">
+        <div class=""></div>
+        <h1 class="fw-bold text-light">AKI MOBIL & MOTOR 24 JAM</h1>
+        <p class="lead text-light">Siap Kirim & Pasang 24 Jam</p>
+        <a href="https://wa.me/6281977792060"
+          ><button class="btn btn-danger btn-lg">Hubungi Sekarang</button></a
+        >
+      </main>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section id="tentang">
+      <div class="container-fluid ps-5 pe-5 pb-5 tentang">
+        <h1 class="fw-bold text-center tentang text-danger">
+          Tentang <span class="text-danger">Kami</span>
+        </h1>
+        <p class="text-center lead mt-3">
+          <span class="fw-bold text-danger">U2Battery</span> adalah pilihan
+          utama untuk aki kendaraan darat, laut, dan alat berat. Kami menawarkan
+          aki berkualitas dari <span class="fw-bold">GS Astra Otopart,</span>
+          <span class="fw-bold">Incoe Astra</span> dan
+          <span class="fw-bold">Amaron</span>. Dengan tenaga profesional dan
+          berpengalaman, kami berkomitmen untuk memberikan pelayanan terbaik dan
+          memastikan kepuasan Anda. Produk kami asli dan bergaransi. Pilih
+          <span class="fw-bold text-danger">U2Battery</span> untuk solusi aki
+          yang andal dan terpercaya. Kami siap melayani anda dengan sepenuh
+          hati.
+          <!-- Jual AKI untuk segala jenis Kendaraan darat maupun laut alat berat merk GS astra otopart & Incoe astra -->
+        </p>
+      </div>
+    </section>
+
+    <!-- Logo Keunggulan -->
+    <section>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0">
+              <img src="images/Coin2.svg" alt="" style="height: 150px" />
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Harga Terjangkau</h6>
+                <p class="card-text">
+                  Harga lebih murah, kualitas tetap sama. <br />Kami juga
+                  menerima tukar tambah aki dan pembelian aki bekas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0">
+              <img src="images/Antar.svg" alt="" style="height: 150px" />
+              <div class="card-body">
+                <h6 class="card-title fw-bold">
+                  Siap Antar Keseluruh Wilayah Denpasar
+                </h6>
+                <p class="card-text">
+                  Melayani pengantaran aki seluruh wilayah Denpasar dijamin
+                  sampai lokasi dengan
+                  <span class="fw-bold">gratis</span> ongkir.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card border-0">
+              <img src="images/24Jam.svg" alt="" style="height: 150px" />
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Siap Melayani Anda 24 Jam</h6>
+                <p class="card-text">
+                  Kami buka sepanjang hari. Untuk melayani anda setiap saat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Produk -->
+    <section class="produk" id="produk">
+      <header class="masthead text-center text-dark mt-5">
+        <div class="masthead-content atasan">
+          <div class="container px-5">
+            <h1 class="masthead-heading mb-0 fw-bold text-danger">
+              Kualitas Aki Dijamin No.1
+            </h1>
+            <h4 class="masthead-subheading mb-0 mt-1">
+              Cari Produk Pilihan dan Tambahkan Keranjang Anda.
+            </h4>
+            <!-- Searchbox -->
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-group mb-3 mt-4">
+                    <input
+                      type="text"
+                      class="form-control rounded-pill shadow"
+                      placeholder="Cari Nama Aki atau Jenis Aki . . ."
+                      id="searchInput"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Panduan CTA -->
+      <section>
+        <div class="text-center">
+          <p>atau</p>
+          <a href="https://wa.me/6281977792060"
+            ><button
+              class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold"
+            >
+              Klik Disini Untuk Konsultasi Gratis
+            </button></a
+          >
+        </div>
+      </section>
+
+      <!-- Product-->
+      <section class="py-5" id="product" x-data="product">
+        <div class="container px-4 px-lg-5 mt-5">
+          <ul
+            class="row gx-4 gx-lg-5 row-cols-12 row-cols-md-3 row-cols-xl-4 justify-content-center"
+            id="itemList"
+            style="list-style: none"
+          >
+            <template x-for="(item, index) in items" x-key="index">
+              <li>
+                <!-- Card Start -->
+                <div class="col mb-5">
+                  <div class="card h-100">
+                    <!-- Sale badge-->
+                    <div
+                      class="badge bg-warning text-dark position-absolute"
+                      style="top: 0.5rem; right: 0.5rem"
+                      x-text="item.category"
+                    ></div>
+                    <!-- Product image-->
+                    <img class="card-img-top" :src=`images/${item.img}`
+                    alt="item.name" style="object-fit: cover; padding: 0.8rem ;
+                    border-radius: 2rem;"/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                      <div class="text-center">
+                        <!-- Product name-->
+                        <h5 class="fw-bolder" x-text="item.name"></h5>
+
+                        <!-- Product price-->
+                        <span x-text="rupiah(item.price)"></span><br />
+                        <span
+                          class="text-body-secondary"
+                          style="font-size: 0.8rem"
+                          >*Harga Tukar Tambah</span
+                        >
+                      </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div
+                      class="card-footer p-4 pt-0 border-top-0 bg-transparent"
+                    >
+                      <div class="text-center">
+                        <a
+                          class="btn btn-outline-danger mt-auto fw-bold"
+                          href="#"
+                          @click.prevent="$store.cart.add(item)"
+                          >Tambah ke keranjang</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- Kontak -->
+    <section class="kontak" id="kontak">
+      <div class="container">
+        <h2 class="text-center text-danger fw-bold">Contact Us</h2>
+        <div class="mt-5">
+          <div class="row g-4">
+            <div class="col-md">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span class="fw-bold">Alamat Kami</span>
+                  <br />Jl. Glogor Carik No.81, Pemogan, Denpasar Selatan, Kota
+                  Denpasar, Bali 80221
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-brands fa-whatsapp fa-lg"></i>
+                  <span class="fw-bold">Nomor Telepon / WhatsApp</span>
+                  <br /><a href="https://wa.me/6281977792060"
+                    ><button class="btn btn-sm btn-lg">
+                      +62-819-7779-2060
+                    </button></a
+                  >
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-brands fa-instagram fa-lg"></i>
+                  <span class="fw-bold">Instagram</span>
+                  <br /><a href="https://www.instagram.com/u2battery/"
+                    ><button class="btn btn-sm">@u2battery</button></a
+                  >
+                </li>
+                <li class="list-group-item">
+                  <span class="fw-bold">Google Maps</span>
+                  <div class="maps">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.8363228403673!2d115.18952399999999!3d-8.7070887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd241f1e39e5eaf%3A0xf1d880106a16766b!2sToko%20Aki%20Mobil%20%26%20Motor%2024%20Jam%20U2%20Battery!5e0!3m2!1sid!2sid!4v1724329671285!5m2!1sid!2sid"
+                      width="100%"
+                      height="auto"
+                      style="border: 0"
+                      allowfullscreen=""
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      class="peta mt-2"
+                    ></iframe>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md">
+              <img
+                src="images/cont.svg"
+                class="img-fluid"
+                style="height: 25rem"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-5 bg-danger">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; U2Battery 2024
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootsrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/script.js"></script>
+    <script src="js/scriptproduct.js"></script>
+  </body>
+</html>

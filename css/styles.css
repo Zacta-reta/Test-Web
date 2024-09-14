@@ -1,0 +1,155 @@
+.body {
+  padding-top: 100px;
+  margin-top: 65px;
+}
+
+.tentang {
+  padding: 3rem 7%;
+}
+
+.kontak {
+  padding: 4rem 7% 1.4rem;
+}
+
+.produk {
+  padding: 3rem 7%;
+}
+
+.card {
+  border-radius: 20px;
+}
+
+.maps {
+  width: 100%;
+  height: auto;
+  flex: 50%;
+}
+
+.maps iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-image {
+  background-image: url("/images/header2.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+}
+
+.custom-carousel-container {
+  position: relative;
+  width: 80%;
+  overflow: visible; /* Allow overflow to show hover effect */
+}
+
+.custom-carousel {
+  display: flex;
+  gap: 20px; /* Add gap between cards */
+  transition: transform 0.5s ease-in-out;
+}
+
+.custom-card {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  user-select: none; /* Disable text selection */
+}
+
+.custom-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  user-select: none; /* Disable text selection */
+  pointer-events: none; /* Disable pointer events */
+}
+
+.custom-card .custom-content {
+  padding: 15px;
+  text-align: center;
+  pointer-events: none; /* Disable pointer events */
+}
+
+.custom-card .custom-content h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.custom-card .custom-content p {
+  margin: 10px 0 0;
+  font-size: 0.9em;
+  color: #777;
+  transition: color 0.3s;
+}
+
+.custom-card:hover {
+  transform: translateY(-10px);
+  background-color: #000;
+  color: #fff;
+}
+
+.custom-card:hover .custom-content h3,
+.custom-card:hover .custom-content p {
+  color: #fff;
+}
+
+.custom-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.custom-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.custom-indicator.active {
+  background-color: black;
+}
+
+.custom-navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.custom-navigation i {
+  cursor: pointer;
+  font-size: 24px;
+  color: black;
+}
+
+.disabled {
+  cursor: not-allowed;
+  background-color: #777;
+}
+
+@media (max-width: 480px) {
+  .cost-produk {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cost-produk {
+    flex: 0 0 10%;
+    max-width: 10%;
+  }
+}
